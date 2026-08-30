@@ -2,16 +2,18 @@ name: Workflow to build and Review the code using Sonarqube
 on:  
  workflow_dispatch:  # this will allow us to run the workflow manually from the github repo
    inputs:
-    job_name:  # this is the name of the input parameter which we will pass while running the workflow manually
-      description: 'Enter the job name to run'  # this is the description of the input parameter
-      required: true  # this will make the input parameter mandatory
-      type: choice  # this will make the input parameter a choice type
-      options:  # these are the options which we will get while running the workflow manually
-        - job_maven
-        - job_sonar
+      job_maven:
+        description: 'Run the maven job'  # this is the description of the input parameter
+        required: true  # this will make the input parameter mandatory
+        type: boolean  # this will make the input parameter a boolean value
+      job_sonar:
+        description: 'Run the sonar job'  # this is the description of the input parameter
+        required: true  # this will make the input parameter mandatory
+        type: boolean  # this will make the input parameter a boolean value
+      
 jobs:
   job_maven: 
-    if: ${{ github.event.inputs.job_name == 'job_maven' }}  # this will check if the input parameter is job_maven or not
+    if: ${{ inputs.job_maven }}  # this will check if the input parameter is job_maven or not
     continue-on-error: true # if the job fails, the next job will still run
     runs-on: ubuntu-latest 
     steps:
@@ -25,7 +27,7 @@ jobs:
     - name: Build the code using maven 
       run: mvn clean install       
   job_sonar:
-    if: ${{ github.event.inputs.job_name == 'job_sonar' }}  # this will check if the input parameter is job_sonar or not
+    if: ${{ inputs.job_sonar }}  # this will check if the input parameter is job_sonar or not
     needs: job_maven # this job_sonar job will run after the successful completion of job_maven
     runs-on: ubuntu-latest 
     steps:
