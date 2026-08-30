@@ -1,6 +1,18 @@
-name: Code Coverage Workflow using Sonarqube
+name: Workflow to build and Review the code using Sonarqube
 on: push 
 jobs:
+  job_maven:
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Checkout the code on runner VM
+      uses: actions/checkout@v7 
+    - name: Set up Java
+      uses: actions/setup-java@v6
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Build the code using maven 
+      run: mvn clean install 
   job_sonar:
     runs-on: ubuntu-latest 
     steps:
