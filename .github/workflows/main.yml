@@ -1,8 +1,14 @@
 name: Workflow to build and Review the code using Sonarqube
-on: push 
+on:  
+ workflow_dispatch:  # this will allow us to run the workflow manually from the github repo
+   inputs:
+    job_name:  # this is the name of the input parameter which we will pass while running the workflow manually
+      description: 'Enter the job name to run'  # this is the description of the input parameter
+      required: true  # this will make the input parameter mandatory
+      default: 'job_maven'  # this is the default value of the input parameter
 jobs:
   job_maven:
-    continue-on-error: true
+    continue-on-error: true # if the job fails, the next job will still run
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout the code on runner VM
@@ -13,7 +19,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Build the code using maven 
-      run: mvn clean inst 
+      run: mvn clean install       
   job_sonar:
     needs: job_maven # this job_sonar job will run after the successful completion of job_maven
     runs-on: ubuntu-latest 
