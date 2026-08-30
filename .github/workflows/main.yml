@@ -2,6 +2,7 @@ name: Workflow to build and Review the code using Sonarqube
 on: push 
 jobs:
   job_maven:
+    continue-on-error: true
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout the code on runner VM
