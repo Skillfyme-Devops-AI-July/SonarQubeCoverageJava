@@ -5,7 +5,10 @@ on:
     job_name:  # this is the name of the input parameter which we will pass while running the workflow manually
       description: 'Enter the job name to run'  # this is the description of the input parameter
       required: true  # this will make the input parameter mandatory
-      default: 'job_maven'  # this is the default value of the input parameter
+      type: choice  # this will make the input parameter a choice type
+      options:  # these are the options which we will get while running the workflow manually
+        - job_maven
+        - job_sonar
 jobs:
   job_maven:
     continue-on-error: true # if the job fails, the next job will still run
