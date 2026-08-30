@@ -10,7 +10,8 @@ on:
         - job_maven
         - job_sonar
 jobs:
-  job_maven:
+  job_maven: 
+    if: ${{ github.event.inputs.job_name == 'job_maven' }}  # this will check if the input parameter is job_maven or not
     continue-on-error: true # if the job fails, the next job will still run
     runs-on: ubuntu-latest 
     steps:
@@ -24,7 +25,8 @@ jobs:
     - name: Build the code using maven 
       run: mvn clean install       
   job_sonar:
-    #needs: job_maven # this job_sonar job will run after the successful completion of job_maven
+    if: ${{ github.event.inputs.job_name == 'job_sonar' }}  # this will check if the input parameter is job_sonar or not
+    needs: job_maven # this job_sonar job will run after the successful completion of job_maven
     runs-on: ubuntu-latest 
     steps:
     - name: Checkout the code on runner VM
