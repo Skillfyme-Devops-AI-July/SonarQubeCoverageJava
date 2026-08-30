@@ -12,7 +12,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Build the code using maven 
-      run: mvn clean install 
+      run: mvn clean inst 
   job_sonar:
     needs: job_maven # this job_sonar job will run after the successful completion of job_maven
     runs-on: ubuntu-latest 
