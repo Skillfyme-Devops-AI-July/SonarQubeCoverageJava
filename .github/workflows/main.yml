@@ -39,7 +39,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Code Coverage using sonarqube 
-      run: mvn  -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar -Dsonar.projectKey=sonar-demo-skillfyme -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=sonar-demo-skillfyme -Dsonar.token=$SONAR-TOKEN
+      run: mvn  -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.2.0.4988:sonar -Dsonar.projectKey=sonar-demo-new_sonar-demo -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=sonar-demo-new -Dsonar.token=$SONAR-TOKEN
       env:
         SONAR_TOKEN: ${{ secrets.SONAR-TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
